@@ -95,4 +95,80 @@ QUnit.module('Тестируем функцию set', function () {
 
 		assert.deepEqual(set({}, '.deep.nested.field', null), object);
 	});
+
+
+	QUnit.test('set работает правильно c объектами состоящими из массива объектов', function (assert) {
+		const object = {
+			array: [
+				{
+					first: 1,
+					second: "second"
+				},
+				{
+					first: 2,
+					second: "second"
+				},
+				{
+					first: 3,
+					second: "second"
+				}
+			]
+		};
+
+
+		const objectCorrect = {
+			array: [
+				{
+					first: 1,
+					second: "second"
+				},
+				{
+					first: 44,
+					second: "second"
+				},
+				{
+					first: 3,
+					second: "second"
+				}
+			]
+		};
+
+		assert.deepEqual(set(object, '.array.1.first', 44), objectCorrect);
+	});
+
+
+	QUnit.test('set работает правильно c массивом из объектов', function (assert) {
+		const object = [
+			{
+				first: 1,
+				second: "second"
+			},
+			{
+				first: 2,
+				second: "second"
+			},
+			{
+				first: 3,
+				second: "second"
+			}
+		];
+
+
+		const objectCorrect = [
+			{
+				first: 1,
+				second: "second"
+			},
+			{
+				first: 44,
+				second: "second"
+			},
+			{
+				first: 3,
+				second: "second"
+			}
+		];
+
+		assert.deepEqual(set(object, '.1.first', 44), objectCorrect);
+	});
 });
